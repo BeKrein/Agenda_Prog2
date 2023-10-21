@@ -1,27 +1,34 @@
 import React from "react";
 import { DataGrid } from "@mui/x-data-grid";
+import { tableBodyClasses } from "@mui/material";
 
 const colunas = [
-    { field: "id", headerName: "id", width: 100 },
-    { field: "hor", headerName: "Horarios", width: 100 },
-    { field: "seg", headerName: "Segunda", width: 100 },
-    { field: "ter", headerName: "Terça", width: 100 },
-    { field: "qua", headerName: "Quarta", width: 100 },
-    { field: "qui", headerName: "Quinta", width: 100 },
-    { field: "sex", headerName: "Sexta", width: 100 },
-    { field: "sab", headerName: "Sabado", width: 100 }
+    { field: "hor", headerName: "Horarios", width: 110 },
+    { field: "seg", headerName: "Segunda", width: 110 },
+    { field: "ter", headerName: "Terça", width: 110 },
+    { field: "qua", headerName: "Quarta", width: 110 },
+    { field: "qui", headerName: "Quinta", width: 110 },
+    { field: "sex", headerName: "Sexta", width: 110 },
 ];
 
+
 function Tabela(props) {
-    return(
-        <div className="row">
-            <div className="col-2"></div>
-            <div className="col-8">
-                <DataGrid rows={props.infos} columns={colunas}/>
+
+    const tabelas = [];
+
+    for (var i = 1; i < 10; i++) {
+        if ((props.infos.filter((teste) => teste.semestre === i)) == 0){
+            return tabelas;
+        }
+        tabelas.push(
+            <div className="row">
+                <h2>{i}º Semestre:</h2>
+                <DataGrid rows={props.infos.filter((teste) => teste.semestre === i)} columns={colunas} />
             </div>
-            <div className="col-2"></div>
-        </div>
-    )
+        )
+    }
+    return tabelas;
+
 }
 
 export default Tabela;

@@ -2,9 +2,10 @@ import React from "react";
 import axios from "axios";
 import { Button } from "@mui/material";
 import Titulo from "./Titulo";
-import Botao from "./Button";
+import Botao from "./Botao";
 import Curso from "./Curso";
-import Testes from "./Testes";
+import Logo from "./Logo";
+import BotaoFollow from "./BotaoFollow";
 
 
 axios.defaults.baseURL = "http://localhost:3010";
@@ -15,44 +16,34 @@ function App() {
 
     const [listaHorarios, setListaHorarios] = React.useState([]);
     const [listaCursos, setListaCursos] = React.useState([]);
+
     React.useEffect(() => {
         let res = axios.get("/horarios");
         res.then((query) => {
-
             setListaHorarios(query.data);
-            {/*console.log(query.data);*/ }
         });
         res = axios.get("/cursos");
-        console.log(res);
         res.then((query) => {
             setListaCursos(query.data);
-            console.log(query.data);
         });
     }, []);
 
 
-
     return (
-
         <div className="container-lg">
             <div className="row">
-                <Titulo mensagem="Cursos" />
+                <Logo />
+                <div className="col-4" />
                 <div className="col-4">
-                    <Button variant="contained" href="#cc">Ciencia da Computação</Button>
+                    <Titulo mensagem="Cursos" />
                 </div>
-                <div className="col-4">
-                    <Button variant="contained" href="#cc">Ciencia da Computação</Button>
-                </div>
-                <div className="col-4">
-                    <Button variant="contained" href="#cc">Ciencia da Computação</Button>
-                </div>
+                <div className="col-4" />
+                <Botao nomes={listaCursos} />
+                <BotaoFollow />
             </div>
-            <div>
-                <Botao msg="Follow"></Botao>
+            <div className="row">
+                <Curso cursos={listaCursos} horarios={listaHorarios} />
             </div>
-            <Curso
-                cursos={listaCursos}
-                horarios={listaHorarios} />
         </div>
     );
 }

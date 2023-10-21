@@ -4,22 +4,27 @@ import Tabela from "./Tabela";
 import { Card } from "@mui/material";
 
 function Curso(props) {
-    console.log(props);
     return (
         <div className="row">
-            <div className="col-4">
-                <Titulo mensagem="aaaaa"></Titulo>
                 {
                     props.cursos.map((curso) => {
                         return (
-                            <div>
-                                <Titulo id={curso.id} mensagem={curso.nome} />
-                                <Tabela infos={props.horarios.filter((horario) => horario.cursoId === curso.id)} />
+                            <div className="row">
+                                <div className="col-4"/>
+                                <div className="col-4">
+                                    <Titulo id={curso.id} mensagem={curso.nome} />
+                                </div>
+                                <div className="col-4"/>
+                                <div className="col-1"/>
+                                <div className="col-10">
+                                    {/* usar um for */}
+                                    <Tabela infos={props.horarios.filter((horario) => horario.cursoId === curso.id)} />
+                                </div>
+                                <div className="col-1"/>
                             </div>
                         );
                     })
                 }
-            </div>
         </div>
     );
 }
